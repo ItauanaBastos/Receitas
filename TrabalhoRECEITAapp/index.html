@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/inicio.css">
+    <script>
+        function addReceita() {
+            const nome = document.getElementById('inputNome').value.trim();
+            const ingredientes = document.getElementById('inputIngredientes').value.trim();
+            const receita = document.getElementById('inputReceita').value.trim();
+            const categoria = document.getElementById('inputCategoria').value;
+
+            if (nome && ingredientes && receita) {
+                const areaLista = document.getElementById('areaLista');
+                const div = document.createElement('div');
+                div.classList.add('receita');
+                
+                div.innerHTML = `
+                    <h2>${nome}</h2>
+                    <h4>Categoria: ${categoria}</h4>
+                    <h3>Ingredientes:</h3>
+                    <p>${ingredientes}</p>
+                    <h3>Modo de Preparo:</h3>
+                    <p>${receita}</p>
+                `;
+                
+                areaLista.appendChild(div);
+
+                // Limpar os campos de input
+                document.getElementById('inputNome').value = '';
+                document.getElementById('inputIngredientes').value = '';
+                document.getElementById('inputReceita').value = '';
+                document.getElementById('inputCategoria').value = 'almoço';
+            }
+        }
+        
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('show');
+        }
+        
+        function showAddForm() {
+            document.getElementById('mainContent').innerHTML = `
+                <input id="inputNome" type="text" placeholder="Nome da Receita">
+                <select id="inputCategoria">
+                    <option value="almoço">Almoço</option>
+                    <option value="lanche">Lanche</option>
+                    <option value="sobremesa">Sobremesa</option>
+                </select>
+                <textarea id="inputIngredientes" placeholder="Ingredientes" rows="4"></textarea>
+                <textarea id="inputReceita" placeholder="Modo de Preparo" rows="6"></textarea>
+                <button onclick="addReceita()" id="btn-add" class="add">Adicionar Receita</button>
+            `;
+        }
+        
+        function showList() {
+            document.getElementById('mainContent').innerHTML = `
+                <h2>Lista de Receitas</h2>
+                <div class="card">
+                    <img src="https://img.freepik.com/fotos-gratis/lasanha-classica-com-molho-a-bolonhesa_2829-11250.jpg?t=st=1726526954~exp=1726530554~hmac=56663dbea2fb476ccebe1c3794d3fa6943764f915a3aeb6ca5b7d54002b83e2f&w=740" alt="Lasanha à Bolonhesa">
+                    <div class="card-content">
+                        <h3>Lasanha à Bolonhesa</h3>
+                         <p>Camadas de massa de lasanha alternadas com um rico molho de carne moída e molho bechamel, finalizadas com queijo gratinado. Um clássico italiano que agrada a todos.</p>
+                         <button 
+                         <button class="saiba-mais">Aprender!</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                <img src="https://img.freepik.com/fotos-gratis/spaghetti-carbonara_1203-8905.jpg?t=st=1726529265~exp=1726532865~hmac=1f96eff9416a0d78809d5f4f02b912fd90cc1878c9b9d803d51b9e1345bb3b7b&w=740" alt="Carbonara">
+                <div class="card-content">
+                    <h3>Spaghetti à carbonara</h3>
+                     <p>Camadas de massa de lasanha alternadas com um rico molho de carne moída e molho bechamel, finalizadas com queijo gratinado. Um clássico italiano que agrada a todos.</p>
+                     <button class="saiba-mais">Aprender!</button>
+                     </div>
+                </div>
+            </div>
+                <!-- Adicione outros cards de receitas aqui -->
+            `;
+        }
+        
+        function searchReceita() {
+            // Adicione a funcionalidade de busca aqui
+        }
+
+        
+if (localStorage.getItem("token") == null) {
+    alert("Você precisa estar logado para acessar essa página");
+    window.location.href = "../html/signin.html";
+  }
+  
+  const userLogado = JSON.parse(localStorage.getItem("userLogado"));
+  
+  const logado = document.querySelector("#logado");
+  logado.innerHTML = `Olá ${userLogado.nome}`;
+        function sair() {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userLogado");
+            window.location.href = "../html/signin.html";
+        }
+
+
+    </script>
+</head>
+<body>
+    <header>
+        <h1>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAA3CAYAAACo29JGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENElEQVR4nO1aW4gcVRC9QeMLlajx/VjU6aqeIT4XND8aFT/8UdRkEZOdrtuzMEhQFCEIIkRBUL8E0Z+ID/CFoPijIGpUUARBfzSKG/OhGAVRiWii8bF7pGanJzWtyzwzfUfmQP3soXfqdFXdqtv3OjfBBBOMBWplTAnDb4pxap6rRignERKZwqo8l0S4JI1x88wZONKFiBqDhfCTZ8AzdssUjsg4H+Eyz/i9wRE+ss95wk3CWGhyL7nQIFNYJYQvmsIaNks4W7lqBWd5xvfZ34XwV30aK5XzMS4Wwj7DfeVCgxCes8I845UlBis84/0c97AymoJC+DLH3e5CQjVC2TMWjYOfbyrhWOWEcE2b84R3sqgJ4xbLCeMZFxqEscU4uZhGuMBwjxlhe+1CI4zXjLBv6tM4yoUGz3h0uZrxjFcN924bR9hhuKddiPCMh4yTv9oIeMaLJqq7tAYN96GJ3HYXInyMG9tqh3BHiyPcmeOuN9wjNp2rJVzkQsNtJRzuCV+b2vpupoLDlJtbg5OF8IvhWj2uFmONZ/xtuIF7XFrCiZ7xgme8lRDOd8OATiU2QjYKwrjXchvPw3EZ5wlPGW6PTdt+hAnhU7syD0Ob8+fizNyyvj43nRzgYkxnnBCqbS8lxglDEcZDnHYSxpX2H6cx1rV+mJFaTufPjPOM++zkMuNwyJCEzdcYpw1BGlZoChgn92XDcbMe520/ywRolDzhR+PQB4EJc/r2N+ZS8nHD3Z0br+4x3La2aBNmgxJWYxwjhG9t1LK0a9QhYa+N2uYKjlZO6661E1h67uNeUrIp7JNcm9mZRDh9KMIaAghbc1HbssxKqDZjuANpzFhII1waTMQyCOEJ4+Rn2VDc4BjbzVt9o/XQUkruMs5tcwMI063W0IUpfBmRMN7TUSotoeIMJMZaTTdtqPkf94xr1UkhvJztIIISNkr8V40dlFQcNf63whQqorG6Gpur4PgGOUGX0IkjZWzwhLtCNWGsz3Ylva2MhJ253hWmEebV366EbV2HQ7WPFe50bwJ3qN8dxaURri7c2f4EXtVRnMSoF+5oHyYx6p3rLYaMpTiG7yguYVxXtKP9WMrY0LnmSqiMZeRirO0oTvuGZ/w2duIqOMV1A2G8WbSzPdpu1y30BCYAh7s36uHr1+w5OEkIfxbudPdW61rcMp8OgjRh7K8TVvcmrozIE/4IXhzhedcPhPFg0c53sEV7RtgT9IjqX1+fQjLCs27Qo2Jh/BxcOjJ+0IXPDYokwuUhNXZhLOgZ/MDCcgL3FC2sceGAsNkNG40ULbAG9XSoq61Nv9A7JZ7xwKjbhF4wEMYVbhSYq6AkhCcPtki9WOAJ9+tBjBs16oTVPsatQnjdXn8aSBBjvye8rbVlj54LRX0aK/XSW/N8oKr10a3pfJhEuEEiXGgvyk0wwQRubPAPfPdyhueMubYAAAAASUVORK5CYII=">
+            RECEITAS
+
+        </h1>
+        <div class="navbar">
+            <input id="searchBar" type="text" placeholder="Buscar receitas...">
+            <button onclick="searchReceita()" class="search-btn">Buscar</button>
+            <span id="logado"></span>
+            <button onclick="sair()" class="logout-btn">Sair</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <button onclick="toggleSidebar()" class="toggle-sidebar-btn">☰</button>
+        <aside class="sidebar">
+            <button onclick="showAddForm()">Adicionar Receita</button>
+            <button onclick="showList()">Visualizar Receitas</button>
+        </aside>
+
+        <main id="mainContent">
+            <!-- O conteúdo será injetado aqui pelo JavaScript -->
+            
+        </main>
+    </div>
+</body>
+</html>
