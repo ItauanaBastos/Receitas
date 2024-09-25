@@ -22,7 +22,27 @@ $(document).ready(function(){
         $('product-item').show();
     });
 
-
-
-
+    const receitas = {
+        
+    };
 });
+
+document.getElementById('verificarButton').addEventListener('click', function() {
+        const categoria = document.getElementById('categoriaInput').value.toLowerCase();
+        const resultadoElement = document.getElementById('resultado');
+        resultadoElement.innerHTML = ''; // Limpa o resultado anterior
+
+        // Verifica se a categoria existe no objeto de refeições
+        if (receita[category]) {
+            // Loop para exibir cada prato da categoria
+            receita[category].forEach(function(item) {
+                const li = document.createElement('li');
+                li.textContent = item;
+                resultadoElement.appendChild(li);
+            });
+        }
+});
+
+
+
+

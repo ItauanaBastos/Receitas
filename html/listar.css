@@ -1,0 +1,81 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+}
+header {
+    background-color: #140c29;
+    font-family: "Inter", sans-serif;
+    font-size: 1.5em;
+    font-weight: 800;
+    color: #ccc;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    
+}
+
+.navbar {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 800px;
+}
+.main{
+    display: block;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2%;
+   
+}
+
+.main button{
+    width: 15%;
+    height: 40px;
+    text-align: center;
+    border-radius: 12px; 
+    border: none;
+    background-color: #5664b8;
+    color: #ddd;
+    
+}
+
+button {
+   
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12px #c5c5c5,
+                -6px -6px 12px #ffffff;
+}
+
+button::before {
+    content: '';
+    width: 0em;
+    height: 3em;
+    border-radius: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, #140c29 0%, #140c29 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+    
+}
+   
+   button:hover::before {
+    width: 16em;
+}
