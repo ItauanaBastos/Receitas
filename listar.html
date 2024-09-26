@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receitas!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="listar.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADcAAAA3CAYAAACo29JGAAAACXBIWXMAAAsTAAALEwEAmpwYAAAENElEQVR4nO1aW4gcVRC9QeMLlajx/VjU6aqeIT4XND8aFT/8UdRkEZOdrtuzMEhQFCEIIkRBUL8E0Z+ID/CFoPijIGpUUARBfzSKG/OhGAVRiWii8bF7pGanJzWtyzwzfUfmQP3soXfqdFXdqtv3OjfBBBOMBWplTAnDb4pxap6rRignERKZwqo8l0S4JI1x88wZONKFiBqDhfCTZ8AzdssUjsg4H+Eyz/i9wRE+ss95wk3CWGhyL7nQIFNYJYQvmsIaNks4W7lqBWd5xvfZ34XwV30aK5XzMS4Wwj7DfeVCgxCes8I845UlBis84/0c97AymoJC+DLH3e5CQjVC2TMWjYOfbyrhWOWEcE2b84R3sqgJ4xbLCeMZFxqEscU4uZhGuMBwjxlhe+1CI4zXjLBv6tM4yoUGz3h0uZrxjFcN924bR9hhuKddiPCMh4yTv9oIeMaLJqq7tAYN96GJ3HYXInyMG9tqh3BHiyPcmeOuN9wjNp2rJVzkQsNtJRzuCV+b2vpupoLDlJtbg5OF8IvhWj2uFmONZ/xtuIF7XFrCiZ7xgme8lRDOd8OATiU2QjYKwrjXchvPw3EZ5wlPGW6PTdt+hAnhU7syD0Ob8+fizNyyvj43nRzgYkxnnBCqbS8lxglDEcZDnHYSxpX2H6cx1rV+mJFaTufPjPOM++zkMuNwyJCEzdcYpw1BGlZoChgn92XDcbMe520/ywRolDzhR+PQB4EJc/r2N+ZS8nHD3Z0br+4x3La2aBNmgxJWYxwjhG9t1LK0a9QhYa+N2uYKjlZO6661E1h67uNeUrIp7JNcm9mZRDh9KMIaAghbc1HbssxKqDZjuANpzFhII1waTMQyCOEJ4+Rn2VDc4BjbzVt9o/XQUkruMs5tcwMI063W0IUpfBmRMN7TUSotoeIMJMZaTTdtqPkf94xr1UkhvJztIIISNkr8V40dlFQcNf63whQqorG6Gpur4PgGOUGX0IkjZWzwhLtCNWGsz3Ylva2MhJ253hWmEebV366EbV2HQ7WPFe50bwJ3qN8dxaURri7c2f4EXtVRnMSoF+5oHyYx6p3rLYaMpTiG7yguYVxXtKP9WMrY0LnmSqiMZeRirO0oTvuGZ/w2duIqOMV1A2G8WbSzPdpu1y30BCYAh7s36uHr1+w5OEkIfxbudPdW61rcMp8OgjRh7K8TVvcmrozIE/4IXhzhedcPhPFg0c53sEV7RtgT9IjqX1+fQjLCs27Qo2Jh/BxcOjJ+0IXPDYokwuUhNXZhLOgZ/MDCcgL3FC2sceGAsNkNG40ULbAG9XSoq61Nv9A7JZ7xwKjbhF4wEMYVbhSYq6AkhCcPtki9WOAJ9+tBjBs16oTVPsatQnjdXn8aSBBjvye8rbVlj54LRX0aK/XSW/N8oKr10a3pfJhEuEEiXGgvyk0wwQRubPAPfPdyhueMubYAAAAASUVORK5CYII=">
+            Minhas Receitas
+        </h1>
+        <div class="navbar">
+           
+        </div>
+    </header>
+    
+
+
+    <div class="main">
+        <button  onclick="" id="categoryItem" category="all">Todos</button>
+        <button onclick="" id="categoryItem" category="almoco">Almoço</button>
+        <button onclick="" id="categoryItem" category="jantar">Jantar</button>
+        <button onclick="" id="categoryItem" category="sobremesa">Sobremesa</button>
+        
+    </div>
+    <section class="flexb">
+         <div id="receitas-list">
+            <div class="card" data-category="almoco">
+            
+            </div>
+            <div class="card" data-category="jantar">
+            
+            </div>
+            <div class="card" data-category="sobremesa">
+            
+            </div>
+    </div>
+    </section>
+     <!-- Seção para exibir as receitas -->
+
+     <script>
+        function filterCategory(category) {
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach((card) => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = card.getAttribute('data-category') === category ? 'block' : 'none';
+                }
+            });
+        }
+    
+        document.querySelectorAll('#categoryItem').forEach(button => {
+            button.addEventListener('click', () => {
+                filterCategory(button.getAttribute('category'));
+            });
+        });
+    </script>
+    
+
+    <script>
+        // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIBSPeCOHjCj-nl-GjYCB1exuEIbrZahE",
+            authDomain: "receitas-f30ab.firebaseapp.com",
+            databaseURL: "https://receitas-f30ab-default-rtdb.firebaseio.com",
+            projectId: "receitas-f30ab",
+            storageBucket: "receitas-f30ab.appspot.com",
+            messagingSenderId: "617335034773",
+            appId: "1:617335034773:web:bfe57b6868c77b99ea9c9c"
+        };
+
+        // Inicializando o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(); // Definindo a referência ao banco de dados
+        const storage = firebase.storage(); // Definindo a referência ao Firebase Storage
+
+    
+        
+    // Função para carregar receitas de uma categoria específica usando 'orderByChild'
+    function loadReceitas(category) {
+        let receitasRef = database.ref('receitas/');
+
+        // Se a categoria for diferente de "all", filtrar por categoria
+        if (category !== 'all') {
+            receitasRef = receitasRef.orderByChild('categoria').equalTo(category);
+        }
+
+        receitasRef.on('value', (snapshot) => {
+            const receitasList = document.getElementById('receitas-list');
+            receitasList.innerHTML = ''; // Limpa a lista atual de receitas
+
+            snapshot.forEach((childSnapshot) => {
+                const receita = childSnapshot.val();
+
+                // Cria um card para cada receita e adiciona à lista
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <section class="flex">
+                        <div class="card">                
+                            <img src="${receita.imagem}" alt="${receita.nome}">
+                            <h3>${receita.nome}</h3>
+                            <p>${receita.ingredientes}</p>
+                            <button class="saiba-mais">Vizualizar!</button>
+                            
+                        </div>
+                    </section>
+                `;
+                receitasList.appendChild(card);
+            });
+        });
+    }
+    
+
+    // Adicionar eventos aos botões de categoria
+    document.querySelectorAll('#categoryItem').forEach(button => {
+        button.addEventListener('click', () => {
+            const category = button.getAttribute('category');
+            loadReceitas(category); // Carrega receitas da categoria selecionada
+        });
+    });
+
+    // Carregar todas as receitas inicialmente
+    loadReceitas('all');
+
+        // Carregar receitas ao iniciar a página
+        loadReceitas();
+    </script>
+    
+</body>
+</html>
