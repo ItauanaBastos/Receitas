@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="adicionar.css">
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-storage-compat.js"></script>
+    <title>Receitas | CodeSnap</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar Section -->
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="../images/logo.png">
+                    <h2><span class="danger">RECEITAS!</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="inicio.html">
+                    <span class="material-icons-sharp">
+                        home
+                    </span>
+                    <h3>Ínicio</h3>
+                </a>
+                <a href="Listar.html">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Receitas</h3>
+                </a>
+                
+                <a href="signin.html">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Sair</h3>
+                </a>
+            </div>
+        </aside>
+    
+
+     <main>
+        <form id="receita-cad">
+            <div class="form">
+                
+                <div class="receita">
+                    <h4>Nome:</h4>
+                    <input id="inputNome" type="text" placeholder="Nome da Receita" required>
+                    <h4>Categoria:</h4>
+                    <select id="category_list" required>
+                        <option value="">Selecione</option>
+                        <option value="almoco">Almoço</option>
+                        <option value="jantar">Jantar</option>
+                        <option value="sobremesa">Sobremesa</option>
+                    </select>
+                </div>
+                <div class="descricao">
+                    <h4>Descrição:</h4>
+                    <textarea id="inputDescricao" placeholder="Faça um comentárion ou uma descrição da sua receita" rows="4" required></textarea>
+                </div>
+                <div class="ingredientes">
+                    <h4>Ingredientes:</h4>
+                    <textarea id="inputIngredientes" placeholder="Ingredientes" rows="4" required></textarea>
+                </div>
+                <div class="preparo">
+                    <h4>Modo De preparo:</h4>
+                    <textarea id="inputReceita" placeholder="Modo de Preparo" rows="6" required></textarea>
+                </div>
+                <div class="imagem">
+                    <input type="file" id="inputImagem" accept="image/*" required>
+                     <button type="submit">ENVIAR</button>
+                </div>
+            </div>
+        </form> 
+        </main>
+    </div>
+
+        <script>
+             // Configuração do Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAIBSPeCOHjCj-nl-GjYCB1exuEIbrZahE",
+            authDomain: "receitas-f30ab.firebaseapp.com",
+            databaseURL: "https://receitas-f30ab-default-rtdb.firebaseio.com",
+            projectId: "receitas-f30ab",
+            storageBucket: "receitas-f30ab.appspot.com",
+            messagingSenderId: "617335034773",
+            appId: "1:617335034773:web:bfe57b6868c77b99ea9c9c"
+        };
+        // Inicializando o Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database(); // Definindo a referência ao banco de dados
+        const storage = firebase.storage(); // Definindo a referência ao Firebase Storage
+        // Função para enviar os dados do formulário
+        document.getElementById('receita-cad').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('inputNome').value;
+            const descricao= document.getElementById('inputDescricao').value;
+            const categoria = document.getElementById('category_list').value;
+            const ingredientes = document.getElementById('inputIngredientes').value;
+            const receita = document.getElementById('inputReceita').value;
+            const imagemFile = document.getElementById('inputImagem').files[0];
+            // Cria uma referência para o arquivo no Firebase Storage
+            const storageRef = storage.ref('imagens/' + imagemFile.name);
+            storageRef.put(imagemFile).then((snapshot) => {
+                return snapshot.ref.getDownloadURL(); // Obtém a URL da imagem
+            }).then((url) => {
+                // Salvar dados no Realtime Database
+                return database.ref('receitas/').push({
+                    nome: nome,
+                    descricao: descricao,
+                    categoria: categoria,
+                    ingredientes: ingredientes,
+                    receita: receita,
+                    imagem: url // Salva a URL da imagem
+                });
+            }).then(() => {
+                alert('Dados salvos com sucesso!');
+                document.getElementById('receita-cad').reset();
+                loadReceitas(); // Carregar receitas após adicionar uma nova
+            }).catch((error) => {
+                console.error('Erro ao salvar dados:', error);
+            });
+        });
+    </script>
+
+    <script src="orders.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
